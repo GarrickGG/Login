@@ -1,16 +1,17 @@
 import React from "react";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer, useState} from "react";
 import config from "../config/server";
 import Button from "./Button";
 import Input from "./Input";
 import Container from "./Container";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import jwtDecode from 'jwt-decode';
 
 
 
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
+
 
 export type UserDataField = "email" | "password";
 export interface FormField {
@@ -20,6 +21,9 @@ export interface FormField {
 }
 
 const App: React.FC = () => {
+  if (window.location.pathname === "/") {
+    return <Navigate to="/account/log" />;
+  }
   const [userData, setUserData] = useState({} as Record<UserDataField, string>);
   const [disabled, setDisabled] = useReducer(
     (disabled: boolean) => !disabled,
