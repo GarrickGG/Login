@@ -21,9 +21,6 @@ export interface FormField {
 }
 
 const App: React.FC = () => {
-  if (window.location.pathname === "/") {
-    return <Navigate to="/account/log" />;
-  }
   const [userData, setUserData] = useState({} as Record<UserDataField, string>);
   const [disabled, setDisabled] = useReducer(
     (disabled: boolean) => !disabled,
