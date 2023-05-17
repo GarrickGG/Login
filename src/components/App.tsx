@@ -109,7 +109,7 @@ const App: React.FC = () => {
       // store user info to sessionStorage
       //sessionStorage.setItem('user', JSON.stringify(user));
       // navigate to main application
-      window.location.href = `http://localhost:3000/?token=${response.token}`;
+      window.location.href = `http://guoyichat.tech/?token=${response.token}`;
     }
   };
 
