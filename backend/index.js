@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use(userRoutes);
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html')); // 返回前端页面的路径
+  res.sendFile(path.join(__dirname, '../src/components/App')); // 返回前端页面的路径
 });
 
 const uri = process.env.ATLAS_URI;
