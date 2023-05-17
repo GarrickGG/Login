@@ -13,7 +13,9 @@ const port = process.env.PORT || 8000;
 app.use(cors());
 app.use(express.json());
 app.use(userRoutes);
-
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html')); // 返回前端页面的路径
+});
 
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
