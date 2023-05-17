@@ -15,7 +15,8 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "6",
-    "sweetalert2": "^11.4.20"
+    "sweetalert2": "^11.4.20",
+    "vite": "^4.3.7"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",
