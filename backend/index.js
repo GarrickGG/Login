@@ -13,7 +13,9 @@ const port = process.env.PORT || 8000;
 app.use(cors());
 app.use(express.json());
 app.use(userRoutes);
-
+app.get('*', (req, res) => {
+  res.redirect('/account/log');
+});
 
 
 const uri = process.env.ATLAS_URI;
