@@ -1,6 +1,6 @@
 const config = {
   server: {
-    baseUrl: "https://ehworld20220702211431.azurewebsites.net",
+    baseUrl: "http://localhost:8000/",
   },
 };
 

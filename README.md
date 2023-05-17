@@ -5,12 +5,10 @@
 ## Usage
 
 ```sh
-git clone https://github.com/ChinaEHStudio/ehworld_web.git
+git clone 
 cd ehworld_web
 yarn
 yarn dev
 ```
 
-Open source in Apache License 2.0.
-
-Made by EHStudio with Love❤
+Made by Guoyi with Love❤

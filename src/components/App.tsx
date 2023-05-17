@@ -5,6 +5,9 @@ import Button from "./Button";
 import Input from "./Input";
 import Container from "./Container";
 import { Link } from "react-router-dom";
+import jwtDecode from 'jwt-decode';
+
+
 
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
@@ -82,30 +85,44 @@ const App: React.FC = () => {
       return;
     }
     if (
-      getTryCount() >= 3 &&
+      getTryCount() >= 100 &&
       Date.now() - Number(window.localStorage.getItem("time")) <= 900000
     ) {
       Swal.fire(
         "不要继续尝试了！",
-        "您已尝试超过三次，请不要继续尝试",
+        "您已尝试超过五次，请不要继续尝试",
         "error"
       );
       return;
     }
     setDisabled();
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", `${config.server.baseUrl}/account/log`, false);
-    xhr.send(
-      JSON.stringify({ email: userData.email, pass: userData.password })
-    );
-    Swal.fire("Good job!", xhr.responseText, "success");
+  xhr.open("POST", `${config.server.baseUrl}account/log`, true);
+  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xhr.onload = function() {
+    if (this.status === 400) {
+      Swal.fire("Error!", this.responseText, "error");
+    } else if (this.status === 200) {
+      const response = JSON.parse(this.responseText);
+      // decode the jwt token to get user info
+      //const user = jwtDecode(response.token);
+      // store user info to sessionStorage
+      //sessionStorage.setItem('user', JSON.stringify(user));
+      // navigate to main application
+      window.location.href = `http://localhost:3000/?token=${response.token}`;
+    }
+  };
+
+  xhr.send(JSON.stringify({ email: userData.email, password: userData.password }));
+
     setDisabled();
     storeTryCount();
+
   };
 
   return (
     <Container>
-      <h1>Login</h1>
+      <h1>Chatbot</h1>
       {fields.map((field, index) => (
         <Input
           onChange={(e) => handleFormInput(e, field)}
@@ -116,7 +133,7 @@ const App: React.FC = () => {
         />
       ))}
       <Button disabled={disabled} onClick={login}>
-        Login
+        登录
       </Button>
       <hr style={{margin: "1.2rem"}} />
       <p style={{fontSize: "15px"}}>没有账号？<Link to={"/reg"}>注册一个！</Link></p>

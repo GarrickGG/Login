@@ -6,6 +6,7 @@ import config from "../config/server";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 
+
 export default function () {
   let [userName, setUserName] = useState(""),
     [email, setEmail] = useState(""),
@@ -21,20 +22,31 @@ export default function () {
       );
       return;
     }
-    fetch(`${config.server.baseUrl}/account/getvn?email=${email}`).catch(() =>
-      Swal.fire("发送失败", "请检查您的网络连接", "error")
-    );
-    Swal.fire("Good job!", "发送成功，请检查邮箱", "success");
-  };
+      fetch(`${config.server.baseUrl}account/reg/email/getv?email=${email}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("HTTP error " + response.status);
+      }
+      Swal.fire("Good job!", "发送成功，请检查邮箱", "success");
+    })
+    .catch(error => {
+      Swal.fire("发送失败", "请检查您的网络连接", "error");
+      console.log(error);
+    });
+  }
 
-  const reg = async ([un, ea, pw, vn]: string[]) => {
-    let xhr = await fetch(`${config.server.baseUrl}/account/reg`, {
+
+    const reg = async ([un, ea, pw, vn]: string[]) => {
+    let xhr = await fetch(`${config.server.baseUrl}account/reg`, {
       method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         username: un,
-        pass: pw,
+        password: pw,
         email: ea,
-        vernumber: vn,
+        verificationCode: vn,
       }),
     });
 
@@ -47,7 +59,7 @@ export default function () {
 
   return (
     <Container>
-      <h1>Register</h1>
+      <h1>注册</h1>
       <Input
         onChange={(e) => setUserName(e.target.value)}
         value={userName}
@@ -77,11 +89,28 @@ export default function () {
       </Button>
       <Button
         onClick={async () => {
-          Swal.fire(
-            "Good job!",
-            await reg([userName, email, password, verifyNumber]),
-            "success"
-          );
+          const result = await reg([userName, email, password, verifyNumber])
+          if(result === "用户名或邮箱已存在"){
+            Swal.fire(
+              "用户名或邮箱已存在",
+              "请换一个邮箱",
+              "error"
+            );
+          };
+          if(result === "验证码不正确"){
+            Swal.fire(
+              "验证码不正确",
+              "请重新确认验证码",
+              "error"
+            );
+          };
+          if(result === "用户创建成功"){
+            Swal.fire(
+              "用户创建成功",
+              "请返回登陆界面",
+              "success"
+            );
+          };
         }}
       >
         注册
