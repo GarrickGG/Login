@@ -5,6 +5,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 import serverless from 'serverless-http';
 import userRoutes from './routes/users.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
 
 const app = express();
 app.use(express.json());
@@ -14,6 +18,8 @@ app.use(cors());
 app.use(express.json());
 app.use(userRoutes);
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const staticFilesPath = path.join(__dirname, '../dist');
 app.use(express.static(staticFilesPath));
 
