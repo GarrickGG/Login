@@ -14,8 +14,6 @@ WORKDIR /usr/src/app/backend
 COPY backend/package*.json ./
 RUN yarn install
 
-# 安装 TypeScript
-RUN yarn global add typescript
 
 # 切回主目录
 WORKDIR /usr/src/app
