@@ -20,6 +20,9 @@ WORKDIR /usr/src/app
 # 复制所有文件到工作目录（这将包括后端和前端的所有文件）
 COPY . .
 
+# 运行 build 脚本
+RUN yarn build
+
 # 使用环境变量来暴露端口
 ARG PORT=8080
 ENV PORT=$PORT
