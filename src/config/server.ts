@@ -1,6 +1,6 @@
 const config = {
   server: {
-    baseUrl: " ",
+    baseUrl: "http://localhost:8000/",
   },
 };
 
