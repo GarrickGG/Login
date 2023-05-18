@@ -3,10 +3,10 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-  "startt": "cd backend && yarn install && yarn start",
-  "dev": "yarn install && concurrently \"yarn startt\" \"vite\"",
-  "build": "tsc && vite build",
-  "preview": "vite preview"
+    "start:banckend": "cd backend && yarn start",
+    "dev": "concurrently \"yarn start:backend\" \"vite\"",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "concurrently": "^8.0.1",
