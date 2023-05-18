@@ -20,8 +20,10 @@ WORKDIR /usr/src/app
 # 复制所有文件到工作目录（这将包括后端和前端的所有文件）
 COPY . .
 
-# 允许外部访问容器的端口，需要根据实际项目需求设定
-EXPOSE 8080
+# 使用环境变量来暴露端口
+ARG PORT=8080
+ENV PORT=$PORT
+EXPOSE $PORT
 
 # 设置启动命令，使用你的启动脚本
 CMD ["yarn", "dev"]
