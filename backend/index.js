@@ -21,6 +21,8 @@ app.use(userRoutes);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const staticFilesPath = path.join(__dirname, '../dist');
+app.use(express.static(path.join(__dirname, 'dist')));
+
 app.use(express.static(staticFilesPath));
 
 app.get('*', (req, res) => {
