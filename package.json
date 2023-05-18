@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "start:backend": "cd backend && yarn start",
-    "dev": "concurrently \"yarn start:backend\" \"vite\"",
+    "dev": "concurrently \"yarn start:backend\" \"vite build\"",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },

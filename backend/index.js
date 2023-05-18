@@ -13,8 +13,12 @@ const port = process.env.PORT || 8000;
 app.use(cors());
 app.use(express.json());
 app.use(userRoutes);
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../src/components/App')); // 返回前端页面的路径
+
+const staticFilesPath = path.join(__dirname, '../dist');
+app.use(express.static(staticFilesPath));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(staticFilesPath, 'index.html'));
 });
 
 const uri = process.env.ATLAS_URI;
