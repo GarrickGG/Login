@@ -23,10 +23,6 @@ COPY . .
 # 运行 build 脚本
 RUN yarn build
 
-# 使用环境变量来暴露端口
-ARG PORT=8080
-ENV PORT=$PORT
-EXPOSE $PORT
 
 # 设置启动命令，使用你的启动脚本
-CMD ["yarn", "dev"]
+CMD ["yarn", "start"]
