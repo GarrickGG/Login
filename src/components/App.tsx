@@ -109,7 +109,7 @@ const App: React.FC = () => {
       // store user info to sessionStorage
       //sessionStorage.setItem('user', JSON.stringify(user));
       // navigate to main application
-      window.location.href = `https://chatbot-for-check.vercel.app/?token=${response.token}`;
+      window.location.href = `https://guoyichat.tech/?token=${response.token}`;
     }
   };
 
